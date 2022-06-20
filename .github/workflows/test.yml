@@ -33,7 +33,7 @@ jobs:
       run: ls
     - name: Cargando los datos
       run: |
-        mysql -uroot -h127.0.0.1 -e < sistemas_estado_pago.sql
+        mysql -uroot -h127.0.0.1 < sistemas_estado_pago.sql
         mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
       
       
