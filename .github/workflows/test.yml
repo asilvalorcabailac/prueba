@@ -22,7 +22,7 @@ jobs:
         mysql-version: '8.0'
     - name: "probando base de datos"
       run: |
-        mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS db1;'
+        mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
         mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS db2;'
         mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
     - name: Unzip DB
