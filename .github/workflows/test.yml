@@ -29,9 +29,11 @@ jobs:
       uses: montudor/action-zip@v1
       with:
           args: unzip -qq ./bd/sistemas_estado_pago.zip 
+    - name: probando
+      run: ls
     - name: Cargando los datos
       run: |
-        mysql -uroot -h127.0.0.1 -e < ./sistemas_estado_pago.zip
+        mysql -uroot -h127.0.0.1 -e < sistemas_estado_pago.zip
         mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
       
       
