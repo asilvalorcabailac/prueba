@@ -1,42 +1,30 @@
-name: Unit Test
+name: DOCKER
 
-on:
-  push:
-    branches: [main]
-  pull_request:
+on: [push]
 
 jobs:
-  PHPUnit:
-    runs-on: ubuntu-latest
-    strategy:
-     matrix:
-       php: [7.4]
+  build:
 
-    name: Test - PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - 33060:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
-    - name: "descargando proyecto"
-      uses: actions/checkout@v3
-    - name: "instalando mysql"
-      uses: shogo82148/actions-setup-mysql@v1
-      with:
-        mysql-version: '8.0'
-    - name: "probando base de datos"
-      run: |
-        mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
-        mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS db2;'
-        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
-    - name: Unzip DB
-      uses: montudor/action-zip@v1
-      with:
-          args: unzip -qq ./bd/sistemas_estado_pago.zip 
-    - name: probando
-      run: ls
-    - name: Cargando los datos
-      run: |
-        mysql -uroot -h127.0.0.1 sistemas_estado_pago < sistemas_estado_pago.sql
-        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
-        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
-        mysql -uroot -h127.0.0.1 sistemas_estado_pago -e "SELECT * FROM estado_pago_usuarios"
-      
-      
-    
+      - uses: actions/checkout@v3
+      - name: npm install, build, and test
+        run: |
+          sudo service mysql start
+          mysql -uroot -h127.0.0.1 --port 33060 -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
+          mysql -uroot -h127.0.0.1 --port 33060 -e 'CREATE DATABASE IF NOT EXISTS db2;'
+          mysql -uroot -h127.0.0.1 --port 33060 -e "SHOW DATABASES;"

@@ -1,0 +1,42 @@
+name: Unit Test
+
+on:
+  push:
+    branches: [features/]
+  pull_request:
+
+jobs:
+  PHPUnit:
+    runs-on: ubuntu-latest
+    strategy:
+     matrix:
+       php: [7.4]
+
+    name: Test - PHP ${{ matrix.php }}
+    steps:
+    - name: "descargando proyecto"
+      uses: actions/checkout@v3
+    - name: "instalando mysql"
+      uses: shogo82148/actions-setup-mysql@v1
+      with:
+        mysql-version: '8.0'
+    - name: "probando base de datos"
+      run: |
+        mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
+        mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS db2;'
+        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
+    - name: Unzip DB
+      uses: montudor/action-zip@v1
+      with:
+          args: unzip -qq ./bd/sistemas_estado_pago.zip 
+    - name: probando
+      run: ls
+    - name: Cargando los datos
+      run: |
+        mysql -uroot -h127.0.0.1 sistemas_estado_pago < sistemas_estado_pago.sql
+        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
+        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
+        mysql -uroot -h127.0.0.1 sistemas_estado_pago -e "SELECT * FROM estado_pago_usuarios"
+      
+      
+    
