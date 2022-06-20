@@ -7,9 +7,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [8.x, 10.x, 12.x]
+    
 
     services:
       mysql:
@@ -25,6 +23,6 @@ jobs:
       - name: npm install, build, and test
         run: |
           sudo service mysql start
-          mysql -uroot -h127.0.0.1 --port 33060 -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
-          mysql -uroot -h127.0.0.1 --port 33060 -e 'CREATE DATABASE IF NOT EXISTS db2;'
-          mysql -uroot -h127.0.0.1 --port 33060 -e "SHOW DATABASES;"
+          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
+          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e 'CREATE DATABASE IF NOT EXISTS db2;'
+          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e "SHOW DATABASES;"
