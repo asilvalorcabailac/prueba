@@ -24,7 +24,7 @@ jobs:
         mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS db2;'
         mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
     - name: Unzip DB
-      uses: montudor/action-zip@v1
+    - uses: montudor/action-zip@v1
       with:
           args: unzip -qq ./sistemas_estado_pago.zip -d
     - name: "listar bd"
