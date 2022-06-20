@@ -14,15 +14,20 @@ jobs:
 
     name: Test - PHP ${{ matrix.php }}
     steps:
-    - name: "instalando mysql"
+    - name: "descargando proyecto"
       uses: actions/checkout@v3
     - name: "instalando mysql"
       uses: shogo82148/actions-setup-mysql@v1
       with:
         mysql-version: '8.0'
-    - name: "servidor"
+    - name: "probando base de datos"
       run: |
         mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS db1;'
         mysql -uroot -h127.0.0.1 -e 'CREATE DATABASE IF NOT EXISTS db2;'
-        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
-   
+        mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"+
+    - name: Unzip DB
+      uses: montudor/action-zip@v1
+      with:
+          args: unzip -qq ./bd/sistemas_estado_pago.zip -d   
+    - name: Unzip DB
+      run: ls
