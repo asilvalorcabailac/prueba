@@ -30,10 +30,12 @@ jobs:
         with:
             args: unzip -qq ./bd/sistemas_estado_pago.zip -d ./bd/
       - name: probando
-        run: ls
+        run: |
+          ls
+          ls ./bd
       - name: Cargando los datos
         run: |
-          mysql -uroot -h127.0.0.1 sistemas_estado_pago < sistemas_estado_pago.sql
+          mysql -uroot -h127.0.0.1 sistemas_estado_pago < ./bd/sistemas_estado_pago.sql
           mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
           mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
           mysql -uroot -h127.0.0.1 sistemas_estado_pago -e "SELECT * FROM estado_pago_usuarios"
