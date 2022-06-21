@@ -24,5 +24,16 @@ jobs:
         run: |
           sudo service mysql start
           mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
-          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e 'CREATE DATABASE IF NOT EXISTS db2;'
           mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e "SHOW DATABASES;"
+      - name: Unzip DB
+        uses: montudor/action-zip@v1
+        with:
+            args: unzip -qq ./bd/sistemas_estado_pago.zip -d ./bd/
+      - name: probando
+        run: ls
+      - name: Cargando los datos
+        run: |
+          mysql -uroot -h127.0.0.1 sistemas_estado_pago < sistemas_estado_pago.sql
+          mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
+          mysql -uroot -h127.0.0.1 -e "SHOW DATABASES;"
+          mysql -uroot -h127.0.0.1 sistemas_estado_pago -e "SELECT * FROM estado_pago_usuarios"
