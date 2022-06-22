@@ -57,8 +57,9 @@ jobs:
             args: unzip -qq ./bd/sistemas_estado_pago.zip -d ./bd/
      - name: Cargando los datos
        run: |
-          mysql -uroot -h127.0.0.1 --port 33060 -ppassword sistemas_estado_pago < ./bd/sistemas_estado_pago.sql
-          mysql -uroot -h127.0.0.1 --port 33060 -ppassword-e "SHOW DATABASES;
+          mysql -uroot -h127.0.0.1 --port 33060 -ppassword  sistemas_estado_pago < ./bd/sistemas_estado_pago.sql
+          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e "SHOW DATABASES;"
+          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e "SHOW DATABASES;"
           mysql -uroot -h127.0.0.1 --port 33060 -ppassword sistemas_estado_pago -e "SELECT * FROM estado_pago_usuarios"
      - name: Execute tests
        run: vendor/bin/phpunit --verbose
