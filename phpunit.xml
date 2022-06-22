@@ -32,7 +32,12 @@
         <server name="MAIL_DRIVER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
-        <env name="APP_URL" value="http://localhost"/>
+        <!-- <env name="APP_URL" value="http://localhost"/> -->
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_USERNAME" value="root"/>
+        <env name="DB_DATABASE" value="sistemas_estado_pago"/>
+        <env name="DB_HOST" value="127.0.0.1" />
+        <env name="DB_PORT" value="33060" />
     </php>
 
 </phpunit>
