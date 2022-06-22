@@ -33,16 +33,13 @@ jobs:
          php-version: ${{ matrix.php }}
          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
          coverage: none
+     - name: Copy ENV Laravel Configuration for CI
+       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
      - name: Install dependencies
        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+     - name: Generate key
+       run: php artisan key:generate
      - name: create data base and env file
-       env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 33060
-          DB_USER: root
-          DB_PASSWORD: password
-          DB_DATABASE: sistemas_estado_pago
        run: |
           sudo service mysql start
           mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
