@@ -49,8 +49,8 @@ jobs:
           DB_DATABASE: sistemas_estado_pago
        run: |
           sudo service mysql start
-          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
-          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e "SHOW DATABASES;"
+          mysql -uroot -h127.0.0.1 --port 33060  -e 'CREATE DATABASE IF NOT EXISTS sistemas_estado_pago;'
+          mysql -uroot -h127.0.0.1 --port 33060  -e "SHOW DATABASES;"
      - name: Unzip DB
        uses: montudor/action-zip@v1
        with:
