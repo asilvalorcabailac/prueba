@@ -33,8 +33,6 @@ jobs:
          php-version: ${{ matrix.php }}
          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
          coverage: none
-     - name: Copy ENV Laravel Configuration for CI
-       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
      - name: Install dependencies
        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
      - name: Generate key
@@ -42,10 +40,10 @@ jobs:
      - name: create data base and env file
        env:
           DB_CONNECTION: mysql
-          DB_HOST: localhost
+          DB_HOST: 127.0.0.1
           DB_PORT: 33060
           DB_USER: root
-          DB_PASSWORD: ""
+          DB_PASSWORD: password
           DB_DATABASE: sistemas_estado_pago
        run: |
           sudo service mysql start
@@ -58,7 +56,6 @@ jobs:
      - name: Cargando los datos
        run: |
           mysql -uroot -h127.0.0.1 --port 33060 -ppassword  sistemas_estado_pago < ./bd/sistemas_estado_pago.sql
-          mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e "SHOW DATABASES;"
           mysql -uroot -h127.0.0.1 --port 33060 -ppassword -e "SHOW DATABASES;"
           mysql -uroot -h127.0.0.1 --port 33060 -ppassword sistemas_estado_pago -e "SELECT * FROM estado_pago_usuarios"
      - name: Execute tests
