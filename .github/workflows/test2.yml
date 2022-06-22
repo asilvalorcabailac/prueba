@@ -37,4 +37,14 @@ jobs:
        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
      - name: Install dependencies
        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+     - name: Generate key
+       run: php artisan key:generate
+     - name: Execute tests (Unit and Feature tests) via PHPUnit
+       env:
+          DB_CONNECTION: mysql
+          DB_HOST: localhost
+          DB_PORT: 33060
+          DB_USER: root
+          DB_PASSWORD: "password"
+          DB_DATABASE: unittest
 
